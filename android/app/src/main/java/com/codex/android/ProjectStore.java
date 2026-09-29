@@ -17,7 +17,7 @@ final class ProjectStore {
         if (dirs == null) return out;
         for (File d : dirs) {
             File m = new File(d, "project.json");
-            if (m.isFile()) out.put(new JSONObject(read(m)));
+            if (m.isFile()) { try { out.put(new JSONObject(read(m))); } catch (Exception e) {} }
         }
         return out;
     }
