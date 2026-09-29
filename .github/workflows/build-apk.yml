@@ -20,6 +20,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build APK
+        working-directory: ./android
         run: |
           chmod +x gradlew || true
           ./gradlew assembleDebug || gradle assembleDebug
@@ -28,4 +29,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
