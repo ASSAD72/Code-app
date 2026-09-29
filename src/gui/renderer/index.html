@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self';" />
+  <title>CodeX Desktop</title>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <div id="app">
+    <nav id="sidebar">
+      <div class="brand">
+        <span class="brand-mark">⌘</span>
+        <span class="brand-text">CodeX</span>
+      </div>
+      <ul class="nav-list">
+        <li class="nav-item active" data-view="dashboard">Dashboard</li>
+        <li class="nav-item" data-view="projects">Projects</li>
+        <li class="nav-item" data-view="environments">Environments</li>
+        <li class="nav-item" data-view="jobs">Jobs</li>
+        <li class="nav-item" data-view="terminal">Terminal</li>
+        <li class="nav-item" data-view="builds">Builds</li>
+        <li class="nav-item" data-view="tests">Tests</li>
+        <li class="nav-item" data-view="snapshots">Snapshots</li>
+        <li class="nav-item" data-view="exports">Exports</li>
+        <li class="nav-item" data-view="plugins">Plugins</li>
+        <li class="nav-item" data-view="settings">Settings</li>
+      </ul>
+    </nav>
+
+    <main id="content">
+      <header id="topbar">
+        <h1 id="view-title">Dashboard</h1>
+        <div id="topbar-actions"></div>
+      </header>
+
+      <section id="view-dashboard" class="view active">
+        <div class="grid-cards">
+          <div class="card">
+            <h3>Sandbox Providers</h3>
+            <div id="sandbox-status" class="status-list">Loading...</div>
+          </div>
+          <div class="card">
+            <h3>Local AI</h3>
+            <div id="ai-status" class="status-list">Loading...</div>
+          </div>
+          <div class="card">
+            <h3>Projects</h3>
+            <div id="project-count" class="big-number">-</div>
+          </div>
+          <div class="card">
+            <h3>Active Jobs</h3>
+            <div id="active-job-count" class="big-number">-</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-projects" class="view">
+        <div class="toolbar">
+          <button id="btn-new-project" class="btn-primary">+ New Project</button>
+        </div>
+        <table class="data-table" id="projects-table">
+          <thead><tr><th>Name</th><th>Type</th><th>Environment</th><th>Updated</th><th>Actions</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="view-environments" class="view">
+        <div class="toolbar">
+          <button id="btn-new-environment" class="btn-primary">+ New Environment</button>
+        </div>
+        <table class="data-table" id="environments-table">
+          <thead><tr><th>Name</th><th>Pack</th><th>Provider</th><th>Version</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="view-jobs" class="view">
+        <table class="data-table" id="jobs-table">
+          <thead><tr><th>Title</th><th>Kind</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="view-terminal" class="view">
+        <div class="terminal-header">
+          <select id="terminal-project-select"></select>
+        </div>
+        <pre id="terminal-output"></pre>
+      </section>
+
+      <section id="view-builds" class="view">
+        <div id="builds-log"></div>
+      </section>
+
+      <section id="view-tests" class="view">
+        <div id="tests-log"></div>
+      </section>
+
+      <section id="view-snapshots" class="view">
+        <div class="toolbar">
+          <select id="snapshot-project-select"></select>
+          <button id="btn-new-snapshot" class="btn-primary">Create Snapshot</button>
+        </div>
+        <table class="data-table" id="snapshots-table">
+          <thead><tr><th>ID</th><th>Label</th><th>Created</th><th>Actions</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="view-exports" class="view">
+        <div class="toolbar">
+          <select id="export-project-select"></select>
+          <select id="export-target-select">
+            <option value="source">Source (code + manifests)</option>
+            <option value="windows-exe">Windows EXE</option>
+            <option value="windows-msi">Windows MSI</option>
+            <option value="android-apk">Android APK</option>
+            <option value="android-aab">Android AAB</option>
+            <option value="web-bundle">Web Bundle</option>
+            <option value="linux-binary">Linux Binary</option>
+          </select>
+          <button id="btn-export" class="btn-primary">Export</button>
+        </div>
+        <div id="export-log"></div>
+      </section>
+
+      <section id="view-plugins" class="view">
+        <table class="data-table" id="plugins-table">
+          <thead><tr><th>ID</th><th>Version</th><th>Enabled</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="view-settings" class="view">
+        <div class="card">
+          <h3>Local AI Configuration</h3>
+          <p class="muted">Set via environment variables at launch: CODEX_AI_PROVIDER (ollama | llamacpp | none), CODEX_OLLAMA_URL, CODEX_OLLAMA_MODEL, CODEX_LLAMACPP_URL.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal-overlay" class="hidden">
+    <div id="modal-box"></div>
+  </div>
+
+  <script src="js/renderer.js"></script>
+</body>
+</html>
