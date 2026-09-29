@@ -1,9 +1,27 @@
 package com.codex.android;
 
-import android.app.Activity; import android.os.Bundle; import android.graphics.Color; import android.webkit.*; import android.view.*;
+import android.os.Bundle;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends Activity {
-    @Override public void onCreate(Bundle b){super.onCreate(b); getWindow().setStatusBarColor(Color.rgb(11,16,32)); getWindow().setNavigationBarColor(Color.rgb(11,16,32));
-        WebView w=new WebView(this); w.setBackgroundColor(Color.rgb(11,16,32)); WebSettings s=w.getSettings(); s.setJavaScriptEnabled(true); s.setDomStorageEnabled(true); s.setAllowFileAccess(false); s.setAllowContentAccess(false); s.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
-        w.addJavascriptInterface(new CodexBridge(this), "CodeXAndroid"); w.setWebViewClient(new WebViewClient()); w.loadUrl("file:///android_asset/index.html"); setContentView(w); }
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        WebView webView = new WebView(this);
+        setContentView(webView);
+
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setAllowFileAccess(true);
+
+        webView.setWebViewClient(new WebViewClient());
+        webView.addJavascriptInterface(new CodexBridge(this), "CodexAndroid");
+
+        webView.loadUrl("file:///android_asset/index.html");
+    }
 }
